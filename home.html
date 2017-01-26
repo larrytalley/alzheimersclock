@@ -1,0 +1,150 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Love you mom!</title>
+<style>
+body{margin:0;padding:0;font-family:Arial,Helvetica,sans-serif;font-size:15px;} 
+h1, h2, h3{margin:0;padding:0;font-weight:normal;}
+h1{font-size:12em;font-weight:bold;}
+h2{font-size:11em;font-weight:bold;}
+h3{font-size:1.6em;}
+.day{background:#A8F9FC;color:#022587;}
+.night{background:#022587;color:#A8F9FC;}
+</style>
+</head>
+<body>
+<div id="textDiv"></div>
+<script type="text/javascript">
+Date.prototype.formatDate = function(format)
+{
+    var date = this;
+    if (!format)
+      format="MM/dd/yyyy";               
+ 
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();    
+ 
+    format = format.replace("MM",month.toString().padL(2,"0"));        
+ 
+    if (format.indexOf("yyyy") > -1)
+        format = format.replace("yyyy",year.toString());
+    else if (format.indexOf("yy") > -1)
+        format = format.replace("yy",year.toString().substr(2,2));
+ 
+    format = format.replace("dd",date.getDate().toString().padL(2,"0"));
+ 
+    var hours = date.getHours();       
+    var period = "Day";
+    var periodClass = "day";
+    if (hours < 6 || hours >= 18)
+       {
+       period = "Night";
+       periodClass = "night";
+       }
+
+    if (format.indexOf("t") > -1)
+    {
+       if (hours > 11)
+        format = format.replace("t","pm")
+       else
+        format = format.replace("t","am")
+    }
+    if (format.indexOf("HH") > -1)
+        format = format.replace("HH",hours.toString().padL(2,"0"));
+    if (format.indexOf("hh") > -1) {
+        if (hours > 12) hours = hours - 12;
+        if (hours == 0) hours = 12;
+        format = format.replace("hh",hours.toString().padL(2,"0"));        
+    }
+    if (format.indexOf("mm") > -1)
+       format = format.replace("mm",date.getMinutes().toString().padL(2,"0"));
+    if (format.indexOf("ss") > -1)
+       format = format.replace("ss",date.getSeconds().toString().padL(2,"0"));
+
+    var days = ["Sunday","Monday","Tuesday","Wednesday",
+                "Thursday","Friday","Saturday"];
+    if (format.indexOf("DDDD") > -1)
+        format = format.replace("DDDD",days[date.getDay()]);
+
+    var months = ["January","February","March","April",
+                  "May","June","July","August",
+                  "September","October","November","December"];
+    if (format.indexOf("MONTH") > -1)
+        format = format.replace("MONTH",months[date.getMonth()]);
+
+    if (format.indexOf("PERIOD") > -1)
+        format = format.replace("PERIOD",period);
+
+    return format;
+}
+String.repeat = function(chr,count)
+{    
+    var str = ""; 
+    for(var x=0;x<count;x++) {str += chr}; 
+    return str;
+}
+String.prototype.padL = function(width,pad)
+{
+    if (!width ||width<1)
+        return this;   
+ 
+    if (!pad) pad=" ";        
+    var length = width - this.length
+    if (length < 1) return this.substr(0,width);
+ 
+    return (String.repeat(pad,length) + this).substr(0,width);    
+}    
+String.prototype.padR = function(width,pad)
+{
+    if (!width || width<1)
+        return this;        
+ 
+    if (!pad) pad=" ";
+    var length = width - this.length
+    if (length < 1) this.substr(0,width);
+ 
+    return (this + String.repeat(pad,length)).substr(0,width);
+} 
+String.format = function(frmt,args)
+{   
+    for(var x=0; x<arguments.length; x++)
+    {
+        frmt = frmt.replace("{" + x + "}",arguments[x+1]);
+    }
+    return frmt;
+}
+
+window.onload = function start() {
+    displayTime();
+}
+
+function displayTime() {
+
+var d = new Date();
+
+setInterval(function() {
+d = new Date();
+hours = d.getHours();
+periodClass = "day";
+if (hours < 6 || hours >= 18) periodClass = "night";
+
+div = document.getElementById("textDiv");
+div.innerHTML = 
+  "<h3><br/></h3>" + 
+  "<h1>" +
+  d.formatDate("hh:mm t PERIOD") +
+  "</h1>" +
+  "<h3><br/></h3>" +
+  "<h2>" +
+  d.formatDate("DDDD") +
+  "<br/>" +
+  d.formatDate("MONTH dd, yyyy") +
+  "</h2>";
+div.classList.remove("day");
+div.classList.remove("night");
+div.classList.add(periodClass);
+}, 30000);
+}
+</script>
+</body>
+</html>
