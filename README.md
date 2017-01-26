@@ -14,3 +14,6 @@ My parents found it useful, so I'm posting this for others.
 And of course it could be made better in many ways. I did have some nice images and I was putting an image with a moonscape on the "night" background and flowers and sun in a blue sky on the "day" background, but, that was too much stimulation for my parents, thus this very basic version.
 
 Note that if you try this out, it updates every 30 seconds, and there is a long pause before anything comes up on the screen.
+
+# Link with Appropriate MIME Content
+https://cdn.rawgit.com/larrytalley/alzheimersclock/master/home.html
