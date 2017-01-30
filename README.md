@@ -16,4 +16,4 @@ And of course it could be made better in many ways. I did have some nice images 
 Note that if you try this out, it updates every 30 seconds, and there is a long pause before anything comes up on the screen.
 
 # Link with Appropriate MIME Content
-https://cdn.rawgit.com/larrytalley/alzheimersclock/master/home.html
+https://cdn.rawgit.com/larrytalley/alzheimersclock/v1.0/home.html
